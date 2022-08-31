@@ -1,0 +1,91 @@
+Public sMsg1 As String
+Public bMsg1 As Boolean
+Public rngMsg1 As Range
+Public iMsg1 As Integer
+Public aMsg1()
+Dim sMsg2 As String
+Dim bMsg2 As Boolean
+Dim rngMsg2 As Range
+Dim iMsg2 As Integer
+Dim aMsg2()
+Public Sub 直接传递()
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 ""给需要传递的字符串值加两层双引号""'"
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 True'"
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 Range(""a1:b2"")'"
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 1'"
+End Sub
+Public Sub 传递全局变量()
+    sMsg1 = "直接使用全局变量名"
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 sMsg1'"
+    bMsg1 = False
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 bMsg1'"
+    Set rngMsg1 = Range("a1:c3")
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 rngMsg1'"
+    iMsg1 = 2
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 iMsg1'"
+End Sub
+Public Sub 传递模块级变量()
+    sMsg2 = "使用模块名.模块级变量名"
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 模块1.sMsg2'"
+    bMsg2 = True
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 模块1.bMsg2'"
+    Set rngMsg2 = Range("a1:d4")
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 模块1.rngMsg2'"
+    iMsg2 = 3
+    Application.OnTime Now + TimeValue("00:00:01"), "'传递参数 模块1.iMsg2'"
+End Sub
+Public Sub 传递局部变量()
+    Dim sMsg3 As String
+    Dim bMsg3 As Boolean
+    Dim rngMsg3 As Range
+    Dim iMsg3 As Integer
+    sMsg3 = "给局部变量名加三层双引号"
+    Application.OnTime Now + TimeValue("00:00:01"), "'局部变量 """ & sMsg3 & """'"
+    bMsg3 = False
+    Application.OnTime Now + TimeValue("00:00:01"), "'局部变量 """ & bMsg3 & """'"
+    Set rngMsg3 = Range("a1:e5")
+    Application.OnTime Now + TimeValue("00:00:01"), "'局部变量  Range(" & """" & rngMsg3.Address(0, 0) & """" & ")'"
+    iMsg3 = 5
+    Application.OnTime Now + TimeValue("00:00:01"), "'局部变量 """ & iMsg3 & """'"
+End Sub
+Public Sub 数组()
+    aMsg1 = Range("a1:b5")
+    Application.OnTime Now + TimeValue("00:00:01"), "'数组参数 aMsg1'"
+    aMsg2 = Range("a1:b8")
+    Application.OnTime Now + TimeValue("00:00:01"), "'数组参数 模块1.aMsg2'"
+End Sub
+调用过程
+Public Sub 传递参数(ByVal varInfo As Variant)
+    Select Case TypeName(varInfo)
+        Case "String"
+            MsgBox "传入的字符串为：" & varInfo
+        Case "Boolean"
+            MsgBox "传入的逻辑值为：" & varInfo
+        Case "Range"
+            MsgBox "传入参数的地址为：" & varInfo.Address
+        Case Else
+            MsgBox "传入的数值为：" & varInfo
+    End Select
+End Sub
+Public Sub 数组参数(ByVal varInfo As Variant)
+    Dim iSum As Integer
+    For i = 1 To UBound(varInfo)
+        For j = 1 To UBound(varInfo, 2)
+            iSum = iSum + varInfo(i, j)
+        Next
+    Next
+    MsgBox "传入参数的和为：" & iSum
+End Sub
+Public Sub 局部变量(ByVal varInfo As Variant)
+    If IsNumeric(varInfo) = True Then
+        MsgBox "传入的数值为：" & Val(varInfo)
+    ElseIf TypeName(varInfo) = "Range" Then
+        MsgBox "传入参数的地址为：" & varInfo.Address
+    Else
+        If varInfo = "False" Or varInfo = "True" Then
+            MsgBox "传入的逻辑值为：" & varInfo
+        Else
+            MsgBox "传入的字符串为：" & varInfo
+        End If
+    End If
+End Sub

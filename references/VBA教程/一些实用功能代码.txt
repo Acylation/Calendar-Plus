@@ -1,0 +1,7 @@
+Selection.Row
+Application.StatusBar = ""
+自动重算
+MsgBox
+Call Module
+Close
+
