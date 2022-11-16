@@ -78,3 +78,6 @@ Generate your personal schedule, which is more flexible
 技术选项：Python/C++/JavaScript  
 前端选项：PyQt，Qt，electron  
 移动部署：  
+
+### Reference
+[FullCalendar](https://github.com/fullcalendar/fullcalendar): Drag & Drop 卡片式Calendar
