@@ -10,6 +10,9 @@ Generate your personal schedule, which is more flexible
 - Drag & Put into schedule
 - Reminder / System Message
 - More info when float/longpress
+- Integrate with system calendar by subscribing
+- Widgets
+- Projects View
 
 ### 新设计
 给定时间的日程直接排进日程表，未给定时间的日程作为卡片，先排出时间段，再通过拖动叠放（自动吸附，tag切换、悬浮切换）；时长卡片自行伸缩，半小时为单位；支持左右伸缩和复制，设计手机端交互；日常重复，不定时重复项目
